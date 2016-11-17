@@ -343,47 +343,21 @@ namespace Onlab_Final3
                 if (HumidityC > HumidityD)
                 {
                     // water 'plant C'
-                    /*
-                    ServoCD = false; //kell?
-                    Task.Run(() => {
-                        //for (int i = 0; i < 3; i++) { servo.MoveToPeriod(2.6); Task.Delay(30);  } //.Wait();
-                        servo.MoveToPeriod(2.6);
-                        relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
-                        Task.Delay(2000).Wait();
-                        relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
-                    });
-                    */
-
-                    /*
-                    ServoCD = false; //kell?
+                    ServoCD = false;
                     servo.MoveToPeriod(2.6);
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
                     Task.Delay(2000).Wait();
-                    relay.Write(Windows.Devices.Gpio.GpioPinValue.Low); */
+                    relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
                 }
                 else
                 {
                     // water 'plant D'
-                    /*
-                    ServoCD = true; //kell?
-                    Task.Run(() => {
-                        //for (int i = 0; i < 3; i++) { servo.MoveToPeriod(0.7); Task.Delay(30);  } //.Wait();
-                        servo.MoveToPeriod(0.7);
-                        relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
-                        Task.Delay(2000).Wait();
-                        relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
-                    });
-                     */
-
-
-
-                    /*
-                    ServoCD = true; //kell?
+                    ServoCD = true;
                     servo.MoveToPeriod(0.7);
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
                     Task.Delay(2000).Wait();
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
-                    */
+                    
                 }
             }
         }
@@ -460,20 +434,14 @@ namespace Onlab_Final3
             if (relay.RelayState == Windows.Devices.Gpio.GpioPinValue.High)
                 relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
 
-            Task.Run(() => {
-                for(int i = 0; i <= 3; i++)
-                {
-                    if (ServoCD)
-                    {
-                        servo.MoveToPeriod(0.7);
-                    }
-                    else
-                    {
-                        servo.MoveToPeriod(2.6);
-                    }
-                    Task.Delay(300).Wait();
-                }
-            });
+            if (ServoCD)
+            {
+                servo.MoveToPeriod(0.7);
+            }
+            else
+            {
+                servo.MoveToPeriod(2.6);
+            }
         }
 
         private void bt_plantAB_Click(object sender, RoutedEventArgs e)

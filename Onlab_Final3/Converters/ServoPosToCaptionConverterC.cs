@@ -15,7 +15,7 @@ namespace Onlab_Final3.Converters
          */
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if ((bool)value)
+            if (!(bool)value)
             {
                 return "Water C";
             }
