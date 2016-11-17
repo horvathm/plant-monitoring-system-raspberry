@@ -1,0 +1,155 @@
+﻿<Page
+    x:Class="Onlab_Final3.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Onlab_Final3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Onlab_Final3.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+        <converters:LuminanceToColorConverter x:Key="LuminanceToColorConverter"/>
+        <converters:LuminanceToPercentageConverter x:Key="LuminanceToPercentageConverter"/>
+        <converters:HumidityToColorConverter x:Key="HumidityToColorConverter"/>
+        <converters:HumidityValueInverter x:Key="HumidityValueInverter"/>
+        <converters:ServoPosToCaptionConverterA x:Key="ServoPosToCaptionConverterA"/>
+        <converters:ServoPosToCaptionConverterC x:Key="ServoPosToCaptionConverterC"/>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Grid.Row="0" Padding="15">
+            <RadioButton x:Name="rb_manual" GroupName="Mode" Content="Manual mode" 
+                         Height="30" 
+                         IsChecked="{Binding Path=Mode, Mode=TwoWay, Converter={StaticResource InvertBooleanConverter}}"
+                         Click="rp_modeAM_Click"/>
+            <RadioButton x:Name="rb_auto" GroupName="Mode" Content="Auto mode" 
+                         Height="30" 
+                         IsChecked="{Binding Path=Mode, Mode=TwoWay}"
+                         Click="rp_modeAM_Click"/>
+        </StackPanel>
+        <TextBlock Grid.Row="0" Padding="5" TextAlignment="Center" Text="Brightness:"
+                   Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="pb_luminance" Grid.Row="0" Minimum="0" Maximum="32768"
+                     Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="225,35,225,0" 
+                     Value="{Binding Path=Luminance}" 
+                     Foreground="{Binding Path=Luminance, Converter={StaticResource LuminanceToColorConverter}}"/>
+        <TextBlock x:Name="tb_luminance" Grid.Row="0" TextAlignment="Center" 
+                   Height="20"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,41,0,0"
+                   Text="{Binding Path=Luminance}"/>
+        <StackPanel HorizontalAlignment="Right" Grid.Row="0" Padding="15">
+            <Grid Padding="2">
+                <TextBlock TextAlignment="Right" Text="Temp. (C°):"
+                           Height="24" Width="120" Margin="-90,0,0,0" />
+                <TextBox x:Name="tb_temperature" IsReadOnly="True" 
+                         Height="30" Width="75" Margin="112,2,2,0"
+                         Text="{Binding Path=Temperature}"/>
+            </Grid>
+            <Grid Padding="2">
+                <TextBlock TextAlignment="Right" Text="Pressure (Pa):"
+                           Height="24" Width="120" Margin="-90,-5,0,0" />
+                <TextBox x:Name="tb_pressure" IsReadOnly="True"
+                         Height="30" Width="75" Margin="110,-5,0,0"
+                         Text="{Binding Path=BarometricPressure}"/>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="1" Margin="50,50,50,50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            
+            <TextBlock Text="Measured humidity values:" Grid.Column="0" Grid.Row="0" FontSize="14"/>
+            
+            
+            <TextBlock Text="A" Grid.Column="0" Grid.Row="1" FontSize="20" FontWeight="Bold" />
+            <ProgressBar x:Name="pb_plantA" Grid.Column="0" Grid.Row="1" Minimum="0" Maximum="32768"
+                         Height="35" HorizontalAlignment="Stretch" Margin="10,30,10,7" 
+                         Value="{Binding Path=HumidityA, Converter={StaticResource HumidityValueInverter}}" 
+                         Foreground="{Binding Path=HumidityA, Converter={StaticResource HumidityToColorConverter}}"/>
+            <TextBlock x:Name="tb_plantA" Grid.Column="0" Grid.Row="1" 
+                       Height="20" HorizontalAlignment="Center" Margin="10,30,10,7"
+                       Text="{Binding Path=HumidityA}" />
+
+
+            <TextBlock Text="B" Grid.Column="1" Grid.Row="1" FontSize="20" FontWeight="Bold"/>
+            <ProgressBar x:Name="pb_plantB" Grid.Column="1" Grid.Row="1"  Minimum="0" Maximum="32768"
+                         Height="35"  HorizontalAlignment="Stretch" Margin="10,30,10,7" 
+                         Value="{Binding Path=HumidityB, Converter={StaticResource HumidityValueInverter}}" 
+                         Foreground="{Binding Path=HumidityB, Converter={StaticResource HumidityToColorConverter}}"/>
+            <TextBlock x:Name="tb_plantB" Grid.Column="1" Grid.Row="1" 
+                       Height="20" HorizontalAlignment="Center" Margin="10,30,10,7"
+                       Text="{Binding Path=HumidityB}" />
+
+
+            <TextBlock Text="C" Grid.Column="0" Grid.Row="2" FontSize="20" FontWeight="Bold"/>
+            <ProgressBar x:Name="pb_plantC" Grid.Column="0" Grid.Row="2" Minimum="0" Maximum="32768"
+                         Height="35" HorizontalAlignment="Stretch" Margin="10,30,10,7"
+                         Value="{Binding Path=HumidityC, Converter={StaticResource HumidityValueInverter}}" 
+                         Foreground="{Binding Path=HumidityC, Converter={StaticResource HumidityToColorConverter}}"/>
+            <TextBlock x:Name="tb_plantC" Grid.Column="0" Grid.Row="2" 
+                       Height="20" HorizontalAlignment="Center" Margin="10,30,10,7"
+                       Text="{Binding Path=HumidityC}"/>
+
+
+            <TextBlock Text="D" Grid.Column="1" Grid.Row="2" FontSize="20" FontWeight="Bold"/>
+            <ProgressBar x:Name="pb_plantD" Grid.Column="1" Grid.Row="2" Minimum="0" Maximum="32768"
+                         Height="35" HorizontalAlignment="Stretch" Margin="10,30,10,7"
+                         Value="{Binding Path=HumidityD, Converter={StaticResource HumidityValueInverter}}" 
+                         Foreground="{Binding Path=HumidityD, Converter={StaticResource HumidityToColorConverter}}"/>
+            <TextBlock x:Name="tb_plantD" Grid.Column="1" Grid.Row="2" 
+                       Height="20" HorizontalAlignment="Center" Margin="10,30,10,7"
+                       Text="{Binding Path=HumidityD}"/>
+
+            
+        </Grid>
+
+
+        
+        <RadioButton x:Name="rb_plantA" Grid.Row="1" GroupName="plantAB"
+                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-160,0,0,7"
+                     IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}" 
+                     IsChecked="{Binding ServoAB, Mode=TwoWay, Converter={StaticResource InvertBooleanConverter}}" 
+                     Click="rb_plantAB_Click"/>
+        <Button x:Name="bt_plantAB" Grid.Column="0" Grid.Row="1"
+                Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-150,0,0,10"
+                Content="{Binding ServoAB, Converter={StaticResource ServoPosToCaptionConverterA}}" 
+                IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}"
+                Click="bt_plantAB_Click"/>
+        <RadioButton x:Name="rb_plantB" Grid.Row="1" GroupName="plantAB"
+                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="60,0,0,7"
+                     IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}" 
+                     IsChecked="{Binding ServoAB, Mode=TwoWay}"
+                     Click="rb_plantAB_Click"/>
+
+        
+        
+        <RadioButton x:Name="rb_plantC" Grid.Row="1" GroupName="plantCD"
+                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="140,0,0,7"
+                     IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}" 
+                     IsChecked="{Binding ServoCD, Mode=TwoWay}"
+                     Click="rb_plantCD_Click"/>
+        <Button x:Name="bt_plantCD" Grid.Row="1"
+                Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="150,0,0,10"
+                Content="{Binding ServoCD, Converter={StaticResource ServoPosToCaptionConverterC}}" 
+                IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}"
+                Click="bt_plantCD_Click"/>
+        <RadioButton x:Name="rb_plantD" Grid.Row="1" GroupName="plantCD"
+                     HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="360,0,0,7"
+                     IsEnabled="{Binding Mode, Converter={StaticResource InvertBooleanConverter}}" 
+                     IsChecked="{Binding ServoCD, Mode=TwoWay, Converter={StaticResource InvertBooleanConverter}}"
+                     Click="rb_plantCD_Click"/>
+
+        
+        
+    </Grid>
+</Page>
