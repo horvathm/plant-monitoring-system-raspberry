@@ -346,7 +346,7 @@ namespace Onlab_Final3
                     ServoCD = false;
                     servo.MoveToPeriod(2.6);
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
-                    Task.Delay(2000).Wait();
+                    Task.Delay(4000).Wait();
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
                 }
                 else
@@ -355,7 +355,7 @@ namespace Onlab_Final3
                     ServoCD = true;
                     servo.MoveToPeriod(0.7);
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.High);
-                    Task.Delay(2000).Wait();
+                    Task.Delay(4000).Wait();
                     relay.Write(Windows.Devices.Gpio.GpioPinValue.Low);
                     
                 }

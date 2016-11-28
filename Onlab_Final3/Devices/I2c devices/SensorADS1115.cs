@@ -174,15 +174,17 @@ namespace Onlab_Final3.Devices.I2c_devices
 
             if ((byte)(readBuffer[0] & 0x80) != 0x00)
             {
-                // two's complement conversion
+                // two's complement conversion (two's complement byte array to int16)
+                readBuffer[0] = (byte)~readBuffer[0];
+                readBuffer[0] &= 0xEF;
+                readBuffer[1] = (byte)~readBuffer[1];
                 Array.Reverse(readBuffer);
-                var Result = 255 & ~(BitConverter.ToUInt16(readBuffer, 0) - 1);
-                return -1 * Result;
+                return Convert.ToInt16(-1 * (BitConverter.ToInt16(readBuffer, 0) + 1));
             }
             else
             {
                 Array.Reverse(readBuffer);
-                return BitConverter.ToUInt16(readBuffer, 0);
+                return BitConverter.ToInt16(readBuffer, 0);
             }
         }
 
