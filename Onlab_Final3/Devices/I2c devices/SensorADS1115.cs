@@ -67,6 +67,67 @@ namespace Onlab_Final3.Devices.I2c_devices
             IsInitialized = true;
         }
 
+        // Writes into the configuration register
+        public void writeConfig(byte[] config)
+        {
+            adc.Write(new byte[] { ADC_REG_POINTER_CONFIG, config[0], config[1] });
+        }
+
+        // Reads the configuration register than sets the pointer to the conversion register
+        public async Task<byte[]> readConfig()
+        {
+            byte[] readRegister = new byte[2];
+            adc.WriteRead(new byte[] { ADC_REG_POINTER_CONFIG }, readRegister);
+
+            await Task.Delay(10);
+
+            var writeBuffer = new byte[] { ADC_REG_POINTER_CONVERSION };
+            adc.Write(writeBuffer);
+
+            return readRegister;
+        }
+
+        // Sets alert pin into conversion ready mode instead of displaying comparator result
+        public async void TurnAlertIntoConversionReady()
+        {
+            byte[] bytesH = BitConverter.GetBytes(0xFFFF);
+            byte[] bytesL = BitConverter.GetBytes(0x0000);
+
+            Array.Reverse(bytesH);
+            Array.Reverse(bytesL);
+
+            var writeBufferH = new byte[] { ADC_REG_POINTER_HITRESHOLD, bytesH[0], bytesH[1] };
+            var writeBufferL = new byte[] { ADC_REG_POINTER_LOTRESHOLD, bytesL[0], bytesL[1] };
+
+            adc.Write(writeBufferH); await Task.Delay(10);
+            adc.Write(writeBufferL); await Task.Delay(10);
+
+            var writeBuffer = new byte[] { ADC_REG_POINTER_CONVERSION };
+            adc.Write(writeBuffer);
+        }
+        
+        // Writes the treshold registers. Lo treshold default value is 0x8000, Hi treshold default value is 0x7FFF
+        public async Task writeTreshold(UInt16 loTreshold = 32768, UInt16 highTreshold = 32767)
+        {
+            byte[] bytesH = BitConverter.GetBytes(highTreshold);
+            byte[] bytesL = BitConverter.GetBytes(loTreshold);
+
+            Array.Reverse(bytesH);
+            Array.Reverse(bytesL);
+
+            if (((bytesH[0] & 0x80) != 0) && ((bytesL[0] & 0x80) == 0))
+                throw new ArgumentException("High treshold highest bit is 1 and low treshold highest bit is 0 witch disables treshold register");
+
+            var writeBufferH = new byte[] { ADC_REG_POINTER_HITRESHOLD, bytesH[0], bytesH[1] };
+            var writeBufferL = new byte[] { ADC_REG_POINTER_LOTRESHOLD, bytesL[0], bytesL[1] };
+
+            adc.Write(writeBufferH); await Task.Delay(10);
+            adc.Write(writeBufferL); await Task.Delay(10);
+
+            var writeBuffer = new byte[] { ADC_REG_POINTER_CONVERSION };
+            adc.Write(writeBuffer);
+        }
+
         // if the AdcInput is one of the single ended inputs it measure all pin with the same settings
         //only works in single shoot mode, havent tested yet
         public async Task<ADS1115SensorsData> GetAllSensorDataSingleEnded(ADS1115SensorSetting setting)
