@@ -58,7 +58,7 @@ namespace Onlab_Final3.Devices
             {
                 if (percentage < 0 || percentage >= MAX_ANGLE)
                     return;
-                var pulseWith = MIN_PERIOD + percentage * (MAX_PERIOD - MAX_PERIOD / 180);
+                var pulseWith = MIN_PERIOD + percentage * (MAX_PERIOD - MIN_PERIOD / 180);
                 MoveToPeriod(pulseWith);
             }
 
