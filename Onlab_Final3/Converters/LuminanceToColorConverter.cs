@@ -9,10 +9,10 @@ using Windows.UI.Xaml.Media;
 
 namespace Onlab_Final3.Converters
 {
-    /*
-     * Converter that converts that define the color of the 'brightness' progress bar from the value.
-     * Returns a SolidColorBrush.
-     */
+    /// <summary>
+    /// Converter that converts that define the color of the 'brightness' progress bar from the value. 
+    /// Returns a SolidColorBrush.
+    /// </summary>
     class LuminanceToColorConverter : LuminanceConverterBase, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

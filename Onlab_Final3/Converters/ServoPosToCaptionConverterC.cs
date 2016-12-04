@@ -9,10 +9,16 @@ namespace Onlab_Final3.Converters
 {
     class ServoPosToCaptionConverterC : IValueConverter
     {
-        /*
-         * Converter that converts the caption of the button
-         * that changes the raspberry driven relay state in order to match the action
-         */
+        /// <summary>
+        /// Converter that converts the caption of the button
+        /// that changes the raspberry driven relay state in order to match the action
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (!(bool)value)

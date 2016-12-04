@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Onlab_Final3.Converters
 {
-    /*
-     * Base class for luminance converters.
-     * It's readonly fields and ConvertValueToCategory function inherited witch maps the value into the [0,255] range.
-     */
+    /// <summary>
+    /// Base class for luminance converters.
+    /// It's readonly fields and ConvertValueToCategory function inherited witch maps the value into the [0,255] range.
+    /// </summary>
     abstract class LuminanceConverterBase
     {
         protected readonly static int LO_TRESHOLD = 0;

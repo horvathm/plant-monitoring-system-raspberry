@@ -68,7 +68,7 @@ namespace Onlab_Final3.Devices
                 pin.SetActiveDutyCyclePercentage(percentage);
 
                 pin.Start();
-                Task.Delay(signalDuration+100).Wait();
+                Task.Delay(signalDuration + 100).Wait();
                 pin.Stop();
 
                 // there were some power supply issue so I move them twice 

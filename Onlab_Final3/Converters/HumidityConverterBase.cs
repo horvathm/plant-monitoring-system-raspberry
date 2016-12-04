@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Onlab_Final3.Converters
 {
-    /*
-     * Base class that define the ConvertValueToCategory function.
-     * After a measurement process I defined 5 category. 
-     * 
-     *      5 very dry and 1 is very vet and 2 is still good. I tried to follow some kind of characteristic that the
-     *      sensor give during the measurement.
-     */
+    /// <summary>
+    /// Base class that define the ConvertValueToCategory function.
+    /// After a measurement process I defined 5 category.  
+    /// The category 5 very dry and 1 is very vet and 2 is still good. I tried to follow some kind of characteristic that the sensor give during the measurement.
+    /// </summary>
     abstract class HumidityConverterBase
     {
         protected readonly static int LO_TRESHOLD = 0;

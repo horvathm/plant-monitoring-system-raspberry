@@ -7,11 +7,11 @@ using Windows.UI.Xaml.Data;
 
 namespace Onlab_Final3.Converters
 {
-    /*
-     *  Unused!
-     *  Converter that converts value to a category number. 
-     *  Maps the value into the [0,255] range.
-     */
+    /// <summary>
+    ///    Unused!
+    /// Converter that converts value to a category number.
+    /// Maps the value into the[0, 255] range.
+    /// </summary>
     class LuminanceToPercentageConverter : LuminanceConverterBase, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

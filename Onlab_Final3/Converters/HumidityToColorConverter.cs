@@ -9,10 +9,13 @@ using Windows.UI.Xaml.Media;
 
 namespace Onlab_Final3.Converters
 {
-    /*
-     * Converter that converts value into one of the 5 category then give back
-     * a SolidColorBrush with a color that match the category
-     */
+
+
+
+    /// <summary>
+    /// Converter that converts value into one of the 5 category then give back
+    /// a SolidColorBrush with a color that match the category
+    /// </summary>
     class HumidityToColorConverter : HumidityConverterBase, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
